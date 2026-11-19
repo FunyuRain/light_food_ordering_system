@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lightfood.mapper.OrderDetailMapper">
+
+    <insert id="batchInsert">
+        INSERT INTO order_detail
+            (order_id, dish_id, dish_name, dish_image, unit_price, quantity, amount)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.orderId}, #{item.dishId}, #{item.dishName}, #{item.dishImage},
+             #{item.unitPrice}, #{item.quantity}, #{item.amount})
+        </foreach>
+    </insert>
+
+    <select id="selectByOrderId" resultType="com.lightfood.pojo.vo.OrderItemVO">
+        SELECT dish_id, dish_name, dish_image, unit_price, quantity, amount
+        FROM order_detail
+        WHERE order_id = #{orderId}
+        ORDER BY id ASC
+    </select>
+
+</mapper>

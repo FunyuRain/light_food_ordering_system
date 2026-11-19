@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lightfood.mapper.CartMapper">
+
+    <select id="selectByUserId" resultType="com.lightfood.pojo.vo.CartItemVO">
+        SELECT sc.id,
+               sc.dish_id,
+               d.category_id,
+               d.name AS dish_name,
+               d.image_url AS dish_image,
+               d.price,
+               sc.quantity,
+               ROUND(d.price * sc.quantity, 2) AS amount,
+               d.status
+        FROM shopping_cart sc
+        JOIN dish d ON d.id = sc.dish_id
+        WHERE sc.user_id = #{userId}
+        ORDER BY sc.create_time DESC, sc.id DESC
+    </select>
+
+    <select id="selectByUserIdForUpdate" resultType="com.lightfood.pojo.vo.CartItemVO">
+        SELECT sc.id,
+               sc.dish_id,
+               d.category_id,
+               d.name AS dish_name,
+               d.image_url AS dish_image,
+               d.price,
+               sc.quantity,
+               ROUND(d.price * sc.quantity, 2) AS amount,
+               d.status
+        FROM shopping_cart sc
+        JOIN dish d ON d.id = sc.dish_id
+        WHERE sc.user_id = #{userId}
+        ORDER BY sc.create_time DESC, sc.id DESC
+        FOR UPDATE
+    </select>
+
+    <select id="selectByUserAndDishForUpdate" resultType="com.lightfood.pojo.entity.ShoppingCart">
+        SELECT id, user_id, dish_id, quantity, create_time, update_time
+        FROM shopping_cart
+        WHERE user_id = #{userId} AND dish_id = #{dishId}
+        FOR UPDATE
+    </select>
+
+    <select id="selectByIdAndUser" resultType="com.lightfood.pojo.entity.ShoppingCart">
+        SELECT id, user_id, dish_id, quantity, create_time, update_time
+        FROM shopping_cart
+        WHERE id = #{id} AND user_id = #{userId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO shopping_cart (user_id, dish_id, quantity)
+        VALUES (#{userId}, #{dishId}, #{quantity})
+    </insert>
+
+    <update id="updateQuantity">
+        UPDATE shopping_cart
+        SET quantity = #{quantity}
+        WHERE id = #{id} AND user_id = #{userId}
+    </update>
+
+    <delete id="deleteByIdAndUser">
+        DELETE FROM shopping_cart
+        WHERE id = #{id} AND user_id = #{userId}
+    </delete>
+
+    <delete id="deleteByUserId">
+        DELETE FROM shopping_cart WHERE user_id = #{userId}
+    </delete>
+
+</mapper>

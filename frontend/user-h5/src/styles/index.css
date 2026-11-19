@@ -1,0 +1,166 @@
+:root {
+  --van-primary-color: #4f7c4b;
+  --van-success-color: #5f8857;
+  --van-warning-color: #b99b5f;
+  --van-danger-color: #b7796b;
+  --van-text-color: #2d432f;
+  --van-text-color-2: #7d8a77;
+  --van-text-color-3: #a2ac9c;
+  --van-background: #f8f7f2;
+  --van-background-2: #fffdfa;
+  --van-border-color: #edf0e8;
+  --van-active-color: #f3f6ee;
+  --van-border-radius-md: 12px;
+  --van-border-radius-lg: 18px;
+  --van-font-size-md: 13px;
+  --van-font-size-sm: 11px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: #2d432f;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(219, 232, 207, 0.55), transparent 26%),
+    radial-gradient(circle at 92% 100%, rgba(224, 234, 210, 0.6), transparent 26%),
+    #e7ede2;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.login-page {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  box-shadow: 0 0 60px rgba(35, 55, 35, 0.1);
+}
+
+.van-nav-bar {
+  background: transparent;
+}
+
+.van-nav-bar__title {
+  font-weight: 600;
+}
+
+.van-button--primary {
+  border: 0;
+  background: linear-gradient(100deg, #4f7c4b, #345b39);
+}
+
+.van-dialog {
+  border-radius: 18px !important;
+}
+
+.van-dialog__header {
+  color: #2d432f;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.van-dialog__message {
+  color: #758371;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.van-dialog__confirm {
+  color: #4f7c4b;
+}
+
+.van-popup {
+  color: #2d432f;
+}
+
+.van-field__control {
+  color: #334a35;
+}
+
+.van-toast {
+  border-radius: 14px;
+  font-size: 12px;
+}
+
+.user-error-toast {
+  top: 80px !important;
+  width: min(calc(100% - 36px), 420px) !important;
+  min-width: 0;
+  padding: 12px 15px;
+  border: 1px solid #efc4b9 !important;
+  border-radius: 14px !important;
+  background: #fff2ee !important;
+  box-shadow: 0 12px 30px rgba(164, 80, 62, 0.18) !important;
+}
+
+.user-error-toast .van-toast__text {
+  color: #b55343 !important;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.user-error-toast .van-icon {
+  color: #c65d4a !important;
+  font-size: 19px;
+}
+
+.van-empty__description {
+  color: #98a491;
+  font-size: 11px;
+}
+
+.van-loading__text {
+  color: #8f9b89;
+  font-size: 10px;
+}
+
+.van-tag {
+  font-size: 9px;
+}
+
+.van-tabbar {
+  --van-tabbar-item-active-color: #3f6c40;
+}
+
+.van-tabbar-item__text {
+  font-size: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #cbd5c4;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

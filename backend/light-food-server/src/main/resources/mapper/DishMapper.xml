@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lightfood.mapper.DishMapper">
+
+    <sql id="pageWhere">
+        <where>
+            <if test="categoryId != null">
+                AND d.category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                AND d.status = #{status}
+            </if>
+            <if test="name != null and name != ''">
+                AND d.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectPage" resultType="com.lightfood.pojo.vo.DishVO">
+        SELECT d.id, d.category_id, c.name AS category_name, d.name, d.description,
+               d.image_url, d.price, d.sort, d.status, d.create_time, d.update_time
+        FROM dish d
+        JOIN category c ON c.id = d.category_id
+        <include refid="pageWhere"/>
+        ORDER BY d.sort ASC, d.id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="countPage" resultType="long">
+        SELECT COUNT(*)
+        FROM dish d
+        JOIN category c ON c.id = d.category_id
+        <include refid="pageWhere"/>
+    </select>
+
+    <select id="selectVOById" resultType="com.lightfood.pojo.vo.DishVO">
+        SELECT d.id, d.category_id, c.name AS category_name, d.name, d.description,
+               d.image_url, d.price, d.sort, d.status, d.create_time, d.update_time
+        FROM dish d
+        JOIN category c ON c.id = d.category_id
+        WHERE d.id = #{id}
+    </select>
+
+    <select id="selectOnSaleVOById" resultType="com.lightfood.pojo.vo.DishVO">
+        SELECT d.id, d.category_id, c.name AS category_name, d.name, d.description,
+               d.image_url, d.price, d.sort, d.status, d.create_time, d.update_time
+        FROM dish d
+        JOIN category c ON c.id = d.category_id
+        WHERE d.id = #{id} AND d.status = 1
+    </select>
+
+    <select id="selectById" resultType="com.lightfood.pojo.entity.Dish">
+        SELECT id, category_id, name, description, image_url, price, sort, status,
+               create_time, update_time
+        FROM dish
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectOnSaleById" resultType="com.lightfood.pojo.entity.Dish">
+        SELECT id, category_id, name, description, image_url, price, sort, status,
+               create_time, update_time
+        FROM dish
+        WHERE id = #{id} AND status = 1
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO dish (category_id, name, description, image_url, price, sort, status)
+        VALUES (#{categoryId}, #{name}, #{description}, #{imageUrl}, #{price}, #{sort}, #{status})
+    </insert>
+
+    <update id="update">
+        UPDATE dish
+        SET category_id = #{categoryId},
+            name = #{name},
+            description = #{description},
+            image_url = #{imageUrl},
+            price = #{price},
+            sort = #{sort},
+            status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM dish WHERE id = #{id}
+    </delete>
+
+    <update id="updateStatus">
+        UPDATE dish SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <select id="selectOnSaleByCategory" resultType="com.lightfood.pojo.vo.DishVO">
+        SELECT d.id, d.category_id, c.name AS category_name, d.name, d.description,
+               d.image_url, d.price, d.sort, d.status, d.create_time, d.update_time
+        FROM dish d
+        JOIN category c ON c.id = d.category_id
+        WHERE d.status = 1
+        <if test="categoryId != null">
+            AND d.category_id = #{categoryId}
+        </if>
+        ORDER BY c.sort ASC, d.sort ASC, d.id ASC
+    </select>
+
+    <select id="selectHotDishes" resultType="com.lightfood.pojo.vo.DishVO">
+        SELECT d.id, d.category_id, c.name AS category_name, d.name, d.description,
+               d.image_url, d.price, d.sort, d.status, d.create_time, d.update_time
+        FROM dish d
+        JOIN category c ON c.id = d.category_id
+        LEFT JOIN (
+            SELECT od.dish_id, SUM(od.quantity) AS sold
+            FROM order_detail od
+            JOIN orders o ON o.id = od.order_id
+            WHERE o.status IN (1, 2, 3)
+            GROUP BY od.dish_id
+        ) sales ON sales.dish_id = d.id
+        WHERE d.status = 1
+        ORDER BY COALESCE(sales.sold, 0) DESC, d.sort ASC, d.id ASC
+        LIMIT #{limit}
+    </select>
+
+</mapper>

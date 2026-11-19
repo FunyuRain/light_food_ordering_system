@@ -1,0 +1,22 @@
+{
+  "name": "light-food-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Light food ordering frontends",
+  "workspaces": [
+    "admin-web",
+    "user-h5"
+  ],
+  "scripts": {
+    "dev:admin": "npm run dev --workspace=admin-web",
+    "dev:user": "npm run dev --workspace=user-h5",
+    "build:admin": "npm run build --workspace=admin-web",
+    "build:user": "npm run build --workspace=user-h5",
+    "build": "npm run build:admin && npm run build:user",
+    "preview:admin": "npm run preview --workspace=admin-web",
+    "preview:user": "npm run preview --workspace=user-h5"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.1"
+  }
+}

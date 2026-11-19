@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lightfood.mapper.UserMapper">
+
+    <select id="selectByLogin" resultType="com.lightfood.pojo.entity.User">
+        SELECT id, username, phone, password_hash, nickname, avatar_url, status,
+               last_login_time, create_time, update_time
+        FROM `user`
+        WHERE username = #{login} OR phone = #{login}
+        LIMIT 1
+    </select>
+
+    <select id="countByUsername" resultType="int">
+        SELECT COUNT(*) FROM `user` WHERE username = #{username}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `user`
+            (username, phone, password_hash, nickname, avatar_url, status)
+        VALUES
+            (#{username}, #{phone}, #{passwordHash}, #{nickname}, #{avatarUrl}, #{status})
+    </insert>
+
+    <update id="updateLastLogin">
+        UPDATE `user`
+        SET last_login_time = #{time}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

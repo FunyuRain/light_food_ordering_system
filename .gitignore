@@ -1,0 +1,70 @@
+# ===== 依赖 =====
+node_modules/
+**/node_modules/
+.npm/
+.pnpm-store/
+
+# ===== 构建产物 =====
+target/
+**/target/
+dist/
+**/dist/
+build/
+**/build/
+*.class
+*.jar
+*.war
+*.ear
+
+# ===== 前端缓存 =====
+.vite/
+**/.vite/
+.cache/
+**/.cache/
+coverage/
+**/coverage/
+playwright-report/
+**/playwright-report/
+test-results/
+**/test-results/
+
+# ===== 运行日志与本地数据 =====
+*.log
+logs/
+**/logs/
+*.pid
+.run/
+.tmp/
+.m2-repo/
+.npm-cache/
+
+# ===== 环境与密钥 =====
+.env
+.env.*
+!.env.example
+*.local
+*.secret
+application-local.yml
+application-local.yaml
+
+# ===== IDE =====
+.idea/
+**/.idea/
+.vscode/
+**/.vscode/
+*.iml
+*.ipr
+*.iws
+.settings/
+.project
+.classpath
+
+# ===== 操作系统 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== 其他 =====
+*.swp
+*.swo
+*~

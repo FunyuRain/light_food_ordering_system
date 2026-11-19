@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360" role="img" aria-label="Light Food placeholder">
+  <rect width="480" height="360" rx="24" fill="#eef7ee"/>
+  <circle cx="240" cy="150" r="72" fill="#b7d7b0"/>
+  <path d="M240 92c28 20 44 43 44 66a44 44 0 1 1-88 0c0-23 16-46 44-66z" fill="#5b8f58"/>
+  <path d="M240 122v86" stroke="#eef7ee" stroke-width="10" stroke-linecap="round"/>
+  <text x="240" y="292" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#426b40">LIGHT FOOD</text>
+  <text x="240" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#6b8f68">mock dish image</text>
+</svg>
